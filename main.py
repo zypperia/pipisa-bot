@@ -7,7 +7,7 @@ import logging
 
 from os import getenv
 
-from redis.asyncio import Redis
+from redis import Redis
 
 from aiogram.types import Message
 from aiogram.enums import ParseMode
