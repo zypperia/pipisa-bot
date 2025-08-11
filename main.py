@@ -34,16 +34,17 @@ async def dick(message: Message):
 
     db.hset(message.from_user.id, "name", message.from_user.full_name)
 
-    y = int(db.hget(message.from_user.id, "size").decode("utf-8"))
+    size = int(db.hget(message.from_user.id, "size").decode("utf-8"))
+    current_time = db.hget(message.from_user.id, "time").decode("utf-8");
 
-    if time.time() - float(db.hget(message.from_user.id, "time").decode("utf-8")) > 3600 * 24:
-        x = random.randint(0, 10)
-        y += x
+    if time.time() - float(current_time) > 3600 * 24:
+        new_size = random.randint(0, 10)
+        size += new_size
         db.hset(message.from_user.id, "size", y)
         db.hset(message.from_user.id, "time", time.time())
-        await message.answer(f"{message.from_user.full_name}, твой писюн вырос на {x} см.\nТеперь он равен {y} см.\nТы занимаешь (хуёвое) место в топе\nСледующая попытка завтра!")
+        await message.answer(f"{message.from_user.full_name}, твой писюн вырос на {new_size} см.\nТеперь он равен {size} см.\nСледующая попытка завтра!")
     else:
-        await message.answer(f"{message.from_user.full_name}, ты уже играл.\nСейчас он равен {y} см.\nТы занимаешь (хуёвое) место в топе\nСледующая попытка завтра!")
+        await message.answer(f"{message.from_user.full_name}, ты уже играл.\nСейчас он равен {size} см.\nСледующая попытка завтра!")
 
 @dp.message(Command("top"))
 async def top(message: Message):
