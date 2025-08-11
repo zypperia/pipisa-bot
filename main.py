@@ -40,7 +40,7 @@ async def dick(message: Message):
     if time.time() - float(current_time) > 3600 * 24:
         new_size = random.randint(0, 10)
         size += new_size
-        db.hset(message.from_user.id, "size", y)
+        db.hset(message.from_user.id, "size", size)
         db.hset(message.from_user.id, "time", time.time())
         await message.answer(f"{message.from_user.full_name}, твой писюн вырос на {new_size} см.\nТеперь он равен {size} см.\nСледующая попытка завтра!")
     else:
@@ -48,7 +48,7 @@ async def dick(message: Message):
 
 @dp.message(Command("top"))
 async def top(message: Message):
-    x = ""
+    x = "Список игроков:\n"
     i = 1
     for key in db.scan_iter():
         x += f"{db.hget(key, "name").decode("utf-8")} - {db.hget(key, "size").decode("utf-8")} см.\n"
