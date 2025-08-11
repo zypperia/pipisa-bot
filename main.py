@@ -58,7 +58,6 @@ async def top(message: Message):
 
 async def main() -> None:
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
