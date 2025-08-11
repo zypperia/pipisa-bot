@@ -4,6 +4,7 @@ volumes:
 services:
   redis:
     image: redis
+    container_name: redis
     restart: unless-stopped
     ports:
       - 6379:6379
@@ -11,4 +12,5 @@ services:
       - redis-data:/data
   bot:
     image: ghcr.io/zypperia/pipisa-bot:master
+    env_file: .env
     restart: unless-stopped
